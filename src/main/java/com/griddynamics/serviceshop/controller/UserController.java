@@ -9,19 +9,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping("/sign_in")
-    ResponseEntity registration(@RequestBody User user) {
+    @RequestMapping("/sign_up")
+    ResponseEntity signUp(@RequestBody User user) {
         if (userService.isUserExists(user)) {
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
         userService.addUser(user);
         return new ResponseEntity("Registration was successfull", HttpStatus.OK);
+    }
+
+    @RequestMapping("/sign_in")
+    ResponseEntity signIn(@RequestBody User user, HttpServletRequest request) {
+
+        return null;
     }
 
 }
