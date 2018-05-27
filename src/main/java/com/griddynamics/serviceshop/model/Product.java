@@ -1,9 +1,13 @@
 package com.griddynamics.serviceshop.model;
 
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.Objects;
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Product {
+
     private long id;
+
     private String title;
     private long quantity;
     private double price;

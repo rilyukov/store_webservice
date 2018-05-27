@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     UserService userService;
@@ -22,6 +24,12 @@ public class UserController {
         }
         userService.addUser(user);
         return new ResponseEntity("Registration was successful", HttpStatus.OK);
+    }
+
+    @RequestMapping("/sign_in")
+    ResponseEntity signIn(@RequestBody User user, HttpServletRequest request) {
+
+        return null;
     }
 
 }
