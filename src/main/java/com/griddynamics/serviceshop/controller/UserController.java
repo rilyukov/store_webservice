@@ -15,13 +15,13 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping("/sign_in")
-    ResponseEntity registration(@RequestBody User user) {
+    @RequestMapping("/sign_up")
+    ResponseEntity signUp(@RequestBody User user) {
         if (userService.isUserExists(user)) {
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
         userService.addUser(user);
-        return new ResponseEntity("Registration was successfull", HttpStatus.OK);
+        return new ResponseEntity("Registration was successful", HttpStatus.OK);
     }
 
 }
