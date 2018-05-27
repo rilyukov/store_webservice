@@ -8,6 +8,8 @@ public interface UserService {
 
     void addUser(User user);
 
+    boolean logIn(User user);
+
 
 
 

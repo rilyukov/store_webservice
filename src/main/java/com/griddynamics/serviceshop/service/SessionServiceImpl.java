@@ -1,17 +1,38 @@
 package com.griddynamics.serviceshop.service;
 
+import com.griddynamics.serviceshop.model.Session;
+import com.griddynamics.serviceshop.model.User;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("sessionService")
-public class SessionServiceImpl implements SessionService{
+public class SessionServiceImpl implements SessionService {
+    private static List<Session> sessions;
+    private final static Long SESSION_TIME = 900000L;
+
     @Override
     public boolean isSessionExists(HttpServletRequest request) {
+        if (sessions != null) {
+            for (Session session : sessions) {
+                if (session.getSessionId().equals(request.getHeader("sessionId"))) {
+                    if (session.getExpirationDate() < System.currentTimeMillis()) {
+                        session.setExpirationDate(System.currentTimeMillis() + SESSION_TIME);
+                        return true;
+                    }
+
+                }
+
+            }
+        }
         return false;
     }
 
     @Override
-    public String createSession() {
-        return null;
+    public String createSession(User user) {
+        Session session = new Session(user.getId(), System.currentTimeMillis() + SESSION_TIME);
+        sessions.add(session);
+        return session.getSessionId();
     }
 }

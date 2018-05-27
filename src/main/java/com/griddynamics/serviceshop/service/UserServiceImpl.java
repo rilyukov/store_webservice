@@ -28,6 +28,15 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public boolean logIn(User user) {
+        User storedUser = findByEmail(user.getEmail());
+
+        return (storedUser != null && encodePassword(user.getPassword()).equals(storedUser.getPassword()));
+
+    }
+
+
     private User findByEmail(String email) {
         for (User user : users) {
             if (user.getEmail().equals(email)) {
@@ -37,8 +46,8 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    private String encodePassword (String password){
+    private String encodePassword(String password) {
         Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-        return encoder.encodePassword(password,null);
+        return encoder.encodePassword(password, null);
     }
 }
