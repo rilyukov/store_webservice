@@ -12,6 +12,9 @@ public class Product {
     private long quantity;
     private double price;
 
+    public Product() {
+    }
+
     public Product(long id, String title, long quantity, double price) {
         this.id = id;
         this.title = title;

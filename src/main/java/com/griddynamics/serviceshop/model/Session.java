@@ -1,16 +1,17 @@
 package com.griddynamics.serviceshop.model;
 
 import java.util.Date;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class Session {
     private String sessionId;
     private Long userId;
     private Long expirationDate;
-    private final static AtomicLong idCounter = new AtomicLong();
+    //private final static AtomicLong idCounter = new AtomicLong();
 
     public Session( Long userId, Long expirationDate) {
-        this.sessionId = String.valueOf(idCounter.incrementAndGet());
+        this.sessionId = UUID.randomUUID().toString();
         this.userId = userId;
         this.expirationDate = expirationDate;
     }

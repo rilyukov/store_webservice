@@ -1,3 +1,4 @@
+
 create table user
 (
    id integer not null,
@@ -15,19 +16,12 @@ create table product
    primary key(id)
 );
 
-create table session
-(
-id integer not null,
-user_id integer not null,
-exp_time date not null,
-cart_id integer not null
-primary key(id),
-FOREIGN KEY (user_id) REFERENCES user(id),
-foreign key (cart_id) references cart(id)
-);
 
 create table cart
 (
-id integer not null,
+session_id integer not null,
+product_id integer not null,
+quantity integer not null,
 
 )
+

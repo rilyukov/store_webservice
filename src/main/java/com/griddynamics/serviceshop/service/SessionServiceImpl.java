@@ -5,11 +5,12 @@ import com.griddynamics.serviceshop.model.User;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("sessionService")
 public class SessionServiceImpl implements SessionService {
-    private static List<Session> sessions;
+    private static  List<Session> sessions = new ArrayList<>();
     private final static Long SESSION_TIME = 900000L;
 
     @Override
@@ -17,7 +18,7 @@ public class SessionServiceImpl implements SessionService {
         if (sessions != null) {
             for (Session session : sessions) {
                 if (session.getSessionId().equals(request.getHeader("sessionId"))) {
-                    if (session.getExpirationDate() < System.currentTimeMillis()) {
+                    if (session.getExpirationDate() > System.currentTimeMillis()) {
                         session.setExpirationDate(System.currentTimeMillis() + SESSION_TIME);
                         return true;
                     }

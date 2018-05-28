@@ -4,9 +4,9 @@ import com.griddynamics.serviceshop.dto.ProductDto;
 import com.griddynamics.serviceshop.model.Cart;
 
 public interface CartService {
-    public void addItem(ProductDto productDto);
-    public Cart displayItems(Long sessionId);
-    public void editItem(Long id, Long quantity);
-    public void removeItem(Long id);
+    public void addItem(ProductDto productDto, String sessionId);
+    public Cart displayItems(String sessionId);
+    public void editItem(Long id, Long quantity, String sessionId);
+    public void removeItem(Long id, String sessionId);
     public Cart getCart(Long id);
 }
