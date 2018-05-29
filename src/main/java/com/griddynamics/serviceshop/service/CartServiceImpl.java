@@ -28,7 +28,7 @@ public class CartServiceImpl implements CartService {
         if (cartItems != null) {
             for (CartItem cartItem : cartItems) {
                 cartItem.setId(cartItems.indexOf(cartItem) + 1);
-                total += cartItem.getPrice();
+                total += cartItem.getPrice() * cartItem.getQuantity();
             }
             cart.setItems(cartItems);
             cart.setTotal(total);
@@ -38,12 +38,12 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void editItem(Long id, Long quantity, String sessionId) {
-cartItemJdbcRepository.updateCartItem(id,quantity,sessionId);
+        cartItemJdbcRepository.updateCartItem(id, quantity, sessionId);
     }
 
     @Override
     public void removeItem(Long id, String sessionId) {
-
+        cartItemJdbcRepository.removeCartItem(id, sessionId);
     }
 
     @Override

@@ -19,20 +19,16 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    ProductService productService;
+    private ProductService productService;
     @Autowired
-    SessionService sessionService;
+   private SessionService sessionService;
 
     @RequestMapping(value = "/product", method = RequestMethod.GET)
     public ResponseEntity getAllProducts(HttpServletRequest request) {
         if (sessionService.isSessionExists(request)) {
-
             List<Product> products = productService.getAllProducts();
-            if (products.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
             return new ResponseEntity<>(products, HttpStatus.OK);
         }
-     return new ResponseEntity<>("Not authorized", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Not authorized", HttpStatus.BAD_REQUEST);
     }
 }

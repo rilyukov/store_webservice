@@ -16,39 +16,40 @@ public class ProductJdbcRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    public List<Product> getAllProducts(){
+    public List<Product> getAllProducts() {
         return jdbcTemplate.query("select * from product", new ProductRowMapper());
     }
 
-    public Product getProductById(Long id){
+    public Product getProductById(Long id) {
         Product foundedProduct = null;
-        try{
+        try {
             foundedProduct = jdbcTemplate.queryForObject("Select * from product where id = ?",
                     new Object[]{id}, new ProductRowMapper());
-        }catch (DataAccessException ex){
+        } catch (DataAccessException ex) {
 
         }
         return foundedProduct;
 
     }
 
-    public Product getProductByTitle(String title){
+    public Product getProductByTitle(String title) {
         Product foundedProduct = null;
-        try{
+        try {
             foundedProduct = jdbcTemplate.queryForObject("Select * from product where title = ?",
                     new Object[]{title}, new ProductRowMapper());
-        }catch (DataAccessException ex){
+        } catch (DataAccessException ex) {
 
         }
         return foundedProduct;
 
     }
 
+    public void updateProduct(Long productId, Long quantity){
+        jdbcTemplate.update("update product set quantity = ? where id = ?", quantity, productId);
+    }
 
 
-
-
-    class ProductRowMapper implements RowMapper<Product>{
+    class ProductRowMapper implements RowMapper<Product> {
 
         @Override
         public Product mapRow(ResultSet resultSet, int i) throws SQLException {

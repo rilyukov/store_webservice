@@ -3,6 +3,7 @@ package com.griddynamics.serviceshop.repository;
 import com.griddynamics.serviceshop.dto.ProductDto;
 import com.griddynamics.serviceshop.model.CartItem;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -17,14 +18,19 @@ public class CartItemJdbcRepository {
     JdbcTemplate jdbcTemplate;
 
     public void addItem(ProductDto productDto, String sessionId) {
-        jdbcTemplate.update("insert into cart values(?,?,?)",
-                sessionId, productDto.getId(), productDto.getQuantity());
+        try {
+            jdbcTemplate.update("insert into cart values(?,?,?)",
+                    sessionId, productDto.getId(), productDto.getQuantity());
+        }
+        catch (DataAccessException ex){
 
+        }
     }
 
     public List<CartItem> getCartItems(String sesionId) {
         return jdbcTemplate.query("select cart.product_id as productId," +
-                        "product.price as price, product.title as title from cart inner join product on " +
+                        "product.price as price, product.title as title, cart.quantity as quantity" +
+                        " from cart inner join product on " +
                         "cart.product_id = product.id where cart.session_id = ?",
                 new Object[]{sesionId}, new CartItemRowMapper());
     }
@@ -35,7 +41,7 @@ public class CartItemJdbcRepository {
     }
 
     public void removeCartItem(Long id, String sessionId){
-        
+        jdbcTemplate.update("delete from cart where session_id = ? and product_id = ?", sessionId,id);
     }
 
     class CartItemRowMapper implements RowMapper<CartItem> {
@@ -46,6 +52,7 @@ public class CartItemJdbcRepository {
             item.setProductId(resultSet.getLong("productId"));
             item.setPrice(resultSet.getDouble("price"));
             item.setProductTitle(resultSet.getString("title"));
+            item.setQuantity(resultSet.getLong("quantity"));
             return item;
         }
     }

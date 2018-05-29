@@ -1,6 +1,6 @@
 package com.griddynamics.serviceshop.model;
 
-import java.util.concurrent.atomic.AtomicLong;
+
 
 public class CartItem {
     private long id;

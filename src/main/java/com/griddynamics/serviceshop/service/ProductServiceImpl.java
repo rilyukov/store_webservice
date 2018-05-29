@@ -30,6 +30,10 @@ public class ProductServiceImpl implements ProductService {
         return productJdbcRepository.getAllProducts();
     }
 
+    public void updateProduct(Long id, Long quantity){
+        productJdbcRepository.updateProduct(id, quantity);
+    }
+
     /*private static List<Product> populateDummyProducts() {
         List<Product> products = new ArrayList<>();
         products.add(new Product(1L, "Product1", 23L, 21.5));

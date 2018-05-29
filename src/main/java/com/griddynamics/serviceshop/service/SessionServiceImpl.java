@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service("sessionService")
 public class SessionServiceImpl implements SessionService {
-    private static  List<Session> sessions = new ArrayList<>();
+    private static final  List<Session> sessions = new ArrayList<>();
     private final static Long SESSION_TIME = 900000L;
 
     @Override
