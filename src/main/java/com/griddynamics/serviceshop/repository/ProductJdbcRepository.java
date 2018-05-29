@@ -13,8 +13,9 @@ import java.util.List;
 
 @Repository("productRepository")
 public class ProductJdbcRepository {
+
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     public List<Product> getAllProducts() {
         return jdbcTemplate.query("select * from product", new ProductRowMapper());
@@ -44,7 +45,7 @@ public class ProductJdbcRepository {
 
     }
 
-    public void updateProduct(Long productId, Long quantity){
+    public void updateProduct(Long productId, Long quantity) {
         jdbcTemplate.update("update product set quantity = ? where id = ?", quantity, productId);
     }
 

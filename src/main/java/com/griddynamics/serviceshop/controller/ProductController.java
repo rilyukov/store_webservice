@@ -15,13 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-
 public class ProductController {
 
-    @Autowired
     private ProductService productService;
+    private SessionService sessionService;
+
     @Autowired
-   private SessionService sessionService;
+    public ProductController(ProductService productService, SessionService sessionService) {
+        this.productService = productService;
+        this.sessionService = sessionService;
+    }
 
     @RequestMapping(value = "/product", method = RequestMethod.GET)
     public ResponseEntity getAllProducts(HttpServletRequest request) {

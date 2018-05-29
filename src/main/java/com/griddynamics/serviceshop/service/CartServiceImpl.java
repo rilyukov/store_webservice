@@ -11,8 +11,13 @@ import java.util.List;
 
 @Service("cartService")
 public class CartServiceImpl implements CartService {
+
+    private CartItemJdbcRepository cartItemJdbcRepository;
+
     @Autowired
-    CartItemJdbcRepository cartItemJdbcRepository;
+    public CartServiceImpl(CartItemJdbcRepository cartItemJdbcRepository) {
+        this.cartItemJdbcRepository = cartItemJdbcRepository;
+    }
 
     @Override
     public void addItem(ProductDto productDto, String sessionId) {

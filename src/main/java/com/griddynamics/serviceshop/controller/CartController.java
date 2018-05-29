@@ -19,13 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/cart")
 @RestController
 public class CartController {
-    @Autowired
-    CartService cartService;
-    @Autowired
-    ProductService productService;
-    @Autowired
-    SessionService sessionService;
 
+    private CartService cartService;
+    private ProductService productService;
+    private SessionService sessionService;
+
+    @Autowired
+    public CartController(CartService cartService, ProductService productService, SessionService sessionService) {
+        this.cartService = cartService;
+        this.productService = productService;
+        this.sessionService = sessionService;
+    }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseEntity addToCart(@RequestBody ProductDto product, HttpServletRequest request) {

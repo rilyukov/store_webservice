@@ -10,23 +10,20 @@ import java.util.List;
 
 @Service("sessionService")
 public class SessionServiceImpl implements SessionService {
-    private static final  List<Session> sessions = new ArrayList<>();
-    private final static Long SESSION_TIME = 900000L;
+    private static final List<Session> sessions = new ArrayList<>();
+    private static final Long SESSION_TIME = 900000L;
 
     @Override
     public boolean isSessionExists(HttpServletRequest request) {
-        if (sessions != null) {
-            for (Session session : sessions) {
-                if (session.getSessionId().equals(request.getHeader("sessionId"))) {
-                    if (session.getExpirationDate() > System.currentTimeMillis()) {
-                        session.setExpirationDate(System.currentTimeMillis() + SESSION_TIME);
-                        return true;
-                    }
-
+        for (Session session : sessions) {
+            if (session.getSessionId().equals(request.getHeader("sessionId"))) {
+                if (session.getExpirationDate() > System.currentTimeMillis()) {
+                    session.setExpirationDate(System.currentTimeMillis() + SESSION_TIME);
+                    return true;
                 }
-
             }
         }
+
         return false;
     }
 

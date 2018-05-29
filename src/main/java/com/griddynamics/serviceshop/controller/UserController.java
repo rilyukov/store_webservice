@@ -17,11 +17,15 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    @Autowired
-    UserService userService;
+
+    private UserService userService;
+    private SessionService sessionService;
 
     @Autowired
-    SessionService sessionService;
+    public UserController(UserService userService, SessionService sessionService) {
+        this.userService = userService;
+        this.sessionService = sessionService;
+    }
 
     @RequestMapping(value = "/sign_up", method = RequestMethod.POST)
     ResponseEntity signUp(@RequestBody User user, HttpServletRequest request) {

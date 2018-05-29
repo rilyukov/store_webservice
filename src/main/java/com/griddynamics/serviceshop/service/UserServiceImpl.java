@@ -4,19 +4,23 @@ import com.griddynamics.serviceshop.model.User;
 import com.griddynamics.serviceshop.repository.UserJdbcRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Service("userService")
-
 public class UserServiceImpl implements UserService {
 
     private final static AtomicLong counter = new AtomicLong();
+
+    private UserJdbcRepository userJdbcRepository;
+
     @Autowired
-    UserJdbcRepository userJdbcRepository;
+    public UserServiceImpl(UserJdbcRepository userJdbcRepository) {
+        this.userJdbcRepository = userJdbcRepository;
+    }
+
+
+
 
     @Override
     public boolean isUserExists(User user) {
