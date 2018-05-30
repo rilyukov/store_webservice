@@ -14,14 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 
 public class ProductRepositoryTest {
-    @TestConfiguration
-    static class ProductRepositoryTestImpl {
-
-        @Bean
-        public ProductJdbcRepository productJdbcRepository() {
-            return new ProductJdbcRepository();
-        }
-    }
 
     @Autowired
     ProductJdbcRepository productJdbcRepository;

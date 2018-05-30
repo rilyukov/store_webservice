@@ -18,22 +18,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserRepositoryTest {
-   /* @TestConfiguration
-    static class UserRepositoryTestImpl {
-
-        @Bean
-        public UserJdbcRepository userJdbcRepository() {
-            return new UserJdbcRepository();
-        }
-    }*/
 
     @Autowired
     UserJdbcRepository userJdbcRepository;
+
     @Autowired
     JdbcTemplate jdbcTemplate;
 
     @Test
-    public void tuser_should_be_added() {
+    public void user_should_be_added() {
         //given
         User user = new User(1, "asd@qwe.com", "Secret");
 

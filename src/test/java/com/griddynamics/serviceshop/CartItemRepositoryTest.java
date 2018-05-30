@@ -15,14 +15,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CartItemRepositoryTest {
-    @TestConfiguration
-    static class CartItemRepositoryTestImpl{
-        @Bean
-        public CartItemJdbcRepository cartItemJdbcRepository(){
-            return new CartItemJdbcRepository();
-
-        }
-    }
 
     @Autowired
     CartItemJdbcRepository cartItemJdbcRepository;
