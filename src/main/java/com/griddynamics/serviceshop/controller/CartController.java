@@ -79,7 +79,7 @@ public class CartController {
         return new ResponseEntity<>("Not authorized", HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/checkout", method = RequestMethod.GET)
+    @RequestMapping(value = "/checkout", method = RequestMethod.POST)
     public ResponseEntity checkout(HttpServletRequest request) {
         if (sessionService.isSessionExists(request)) {
             Cart userCart = cartService.displayItems(getSessionId(request));
