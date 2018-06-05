@@ -2,6 +2,7 @@ package com.griddynamics.serviceshop.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Product {
@@ -10,12 +11,12 @@ public class Product {
 
     private String title;
     private long quantity;
-    private double price;
+    private BigDecimal price;
 
     public Product() {
     }
 
-    public Product(long id, String title, long quantity, double price) {
+    public Product(long id, String title, long quantity, BigDecimal price) {
         this.id = id;
         this.title = title;
         this.quantity = quantity;
@@ -46,11 +47,11 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

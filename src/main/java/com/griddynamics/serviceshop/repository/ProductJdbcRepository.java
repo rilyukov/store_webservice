@@ -1,5 +1,6 @@
 package com.griddynamics.serviceshop.repository;
 
+import com.griddynamics.serviceshop.exception.NotFoundException;
 import com.griddynamics.serviceshop.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -27,7 +28,7 @@ public class ProductJdbcRepository {
             foundedProduct = jdbcTemplate.queryForObject("Select * from product where id = ?",
                     new Object[]{id}, new ProductRowMapper());
         } catch (DataAccessException ex) {
-
+            throw new NotFoundException("Product not find!");
         }
         return foundedProduct;
 
@@ -39,7 +40,7 @@ public class ProductJdbcRepository {
             foundedProduct = jdbcTemplate.queryForObject("Select * from product where title = ?",
                     new Object[]{title}, new ProductRowMapper());
         } catch (DataAccessException ex) {
-
+            throw new NotFoundException("Product not find!");
         }
         return foundedProduct;
 
@@ -58,7 +59,7 @@ public class ProductJdbcRepository {
             product.setId(resultSet.getLong("id"));
             product.setTitle(resultSet.getString("title"));
             product.setQuantity(resultSet.getLong("quantity"));
-            product.setPrice(resultSet.getDouble("price"));
+            product.setPrice(resultSet.getBigDecimal("price"));
             return product;
         }
     }

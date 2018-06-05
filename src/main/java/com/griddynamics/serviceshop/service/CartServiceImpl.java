@@ -51,8 +51,5 @@ public class CartServiceImpl implements CartService {
         cartItemJdbcRepository.removeCartItem(id, sessionId);
     }
 
-    @Override
-    public Cart getCart(Long id) {
-        return null;
-    }
+
 }

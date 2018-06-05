@@ -26,7 +26,7 @@ public class UserRepositoryTest {
     JdbcTemplate jdbcTemplate;
 
     @Test
-    public void user_should_be_added() {
+    public void userShouldBeAdded() {
         //given
         User user = new User(1, "asd@qwe.com", "Secret");
 
@@ -40,7 +40,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void user_should_be_founded_by_email() {
+    public void userShouldBeFoundedByEmail() {
         //given
         User user = new User(2, "zxc@qwe.com", "Secret");
 

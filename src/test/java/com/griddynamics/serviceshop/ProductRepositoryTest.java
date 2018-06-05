@@ -19,19 +19,19 @@ public class ProductRepositoryTest {
     ProductJdbcRepository productJdbcRepository;
 
     @Test
-    public void all_products_should_be_found() {
+    public void allProductsShouldBeFound() {
         Assert.assertNotNull(productJdbcRepository.getAllProducts());
         Assert.assertEquals(4, productJdbcRepository.getAllProducts().size());
     }
 
     @Test
-    public void product_should_be_found_by_id() {
+    public void productShouldBeFoundById() {
         Assert.assertNotNull(productJdbcRepository.getProductById(1L));
         Assert.assertEquals(1, productJdbcRepository.getProductById(1L).getId());
     }
 
     @Test
-    public void product_should_be_updated() {
+    public void productShouldBeUpdated() {
         //when
         productJdbcRepository.updateProduct(1L, 99L);
 

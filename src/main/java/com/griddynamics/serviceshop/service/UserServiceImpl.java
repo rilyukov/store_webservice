@@ -5,6 +5,7 @@ import com.griddynamics.serviceshop.repository.UserJdbcRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.concurrent.atomic.AtomicLong;
 
 @Service("userService")
@@ -18,8 +19,6 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl(UserJdbcRepository userJdbcRepository) {
         this.userJdbcRepository = userJdbcRepository;
     }
-
-
 
 
     @Override

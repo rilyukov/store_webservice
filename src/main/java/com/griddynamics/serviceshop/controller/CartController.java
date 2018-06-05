@@ -34,9 +34,9 @@ public class CartController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseEntity addToCart(@RequestBody ProductDto product, HttpServletRequest request) {
         if (sessionService.isSessionExists(request)) {
-            if (isProductNotExists(product)) {
+            if (productService.isProductNotExists(product)) {
                 return new ResponseEntity<>("There is no such product in store.", HttpStatus.NOT_FOUND);
-            } else if (isNotEnoughProducts(product)) {
+            } else if (productService.isNotEnoughProducts(product)) {
                 return new ResponseEntity<>("Not enough products in store!", HttpStatus.NOT_FOUND);
             } else {
                 cartService.addItem(product, getSessionId(request));
@@ -49,9 +49,9 @@ public class CartController {
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public ResponseEntity editCartItem(@RequestBody ProductDto product, HttpServletRequest request) {
         if (sessionService.isSessionExists(request)) {
-            if (isProductNotExists(product)) {
+            if (productService.isProductNotExists(product)) {
                 return new ResponseEntity<>("There is no such product in store.", HttpStatus.NOT_FOUND);
-            } else if (isNotEnoughProducts(product)) {
+            } else if (productService.isNotEnoughProducts(product)) {
                 return new ResponseEntity<>("Not enough products in store!", HttpStatus.NOT_FOUND);
             } else {
                 cartService.editItem(product.getId(), product.getQuantity(), getSessionId(request));
@@ -83,7 +83,7 @@ public class CartController {
     public ResponseEntity checkout(HttpServletRequest request) {
         if (sessionService.isSessionExists(request)) {
             Cart userCart = cartService.displayItems(getSessionId(request));
-            if (isAllProductsInStore(userCart)) {
+            if (productService.isAllProductsInStore(userCart)) {
                 for (CartItem cartItem : userCart.getItems()) {
                     long id = cartItem.getProductId();
                     long quantity = productService.getProductById(id).getQuantity() - cartItem.getQuantity();
@@ -103,25 +103,6 @@ public class CartController {
 
     private String getSessionId(HttpServletRequest request) {
         return request.getHeader("sessionId");
-    }
-
-    private boolean isProductNotExists(ProductDto product) {
-        return productService.getProductById(product.getId()) == null;
-    }
-
-    private boolean isNotEnoughProducts(ProductDto productDto) {
-        return productService.getProductById(productDto.getId()).getQuantity() < productDto.getQuantity();
-    }
-
-    private boolean isAllProductsInStore(Cart cart) {
-        for (CartItem cartItem : cart.getItems()) {
-            long id = cartItem.getProductId();
-            long quantity = cartItem.getQuantity();
-            if (isNotEnoughProducts(new ProductDto(id, quantity))) {
-                return false;
-            }
-        }
-        return true;
     }
 
 

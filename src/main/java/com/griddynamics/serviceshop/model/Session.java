@@ -10,7 +10,7 @@ public class Session {
     private Long expirationDate;
     //private final static AtomicLong idCounter = new AtomicLong();
 
-    public Session( Long userId, Long expirationDate) {
+    public Session(Long userId, Long expirationDate) {
         this.sessionId = UUID.randomUUID().toString();
         this.userId = userId;
         this.expirationDate = expirationDate;

@@ -11,6 +11,4 @@ public interface UserService {
     boolean logIn(User user);
 
 
-
-
 }

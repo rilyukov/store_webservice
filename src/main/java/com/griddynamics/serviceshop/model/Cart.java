@@ -1,7 +1,6 @@
 package com.griddynamics.serviceshop.model;
 
 
-
 import java.util.List;
 
 public class Cart {

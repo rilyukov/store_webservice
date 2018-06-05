@@ -1,5 +1,6 @@
 package com.griddynamics.serviceshop.repository;
 
+import com.griddynamics.serviceshop.exception.NotFoundException;
 import com.griddynamics.serviceshop.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -13,7 +14,7 @@ import java.sql.SQLException;
 @Repository("userRepository")
 public class UserJdbcRepository {
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     public User findByEmail(User user) {
         User foundedUser = null;
@@ -21,7 +22,7 @@ public class UserJdbcRepository {
             foundedUser = jdbcTemplate.queryForObject("Select * from user where email = ?",
                     new Object[]{user.getEmail()}, new UserRowMapper());
         } catch (DataAccessException ex) {
-
+            throw new NotFoundException("Can not find user!");
         }
         return foundedUser;
     }

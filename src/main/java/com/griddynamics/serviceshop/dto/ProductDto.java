@@ -4,8 +4,6 @@ public class ProductDto {
     private long id;
     private long quantity;
 
-    public ProductDto() {
-    }
 
     public ProductDto(long id, long quantity) {
         this.id = id;

@@ -22,7 +22,7 @@ public class CartItemRepositoryTest {
     JdbcTemplate jdbcTemplate;
 
     @Test
-    public void item_should_be_added(){
+    public void itemShouldBeAdded(){
         //given
         ProductDto product = new ProductDto(1,55);
 

@@ -1,7 +1,6 @@
 package com.griddynamics.serviceshop.model;
 
 
-
 public class CartItem {
     private long id;
     private long productId;

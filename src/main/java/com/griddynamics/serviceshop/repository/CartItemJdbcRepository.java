@@ -1,6 +1,7 @@
 package com.griddynamics.serviceshop.repository;
 
 import com.griddynamics.serviceshop.dto.ProductDto;
+import com.griddynamics.serviceshop.exception.NotFoundException;
 import com.griddynamics.serviceshop.model.CartItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -16,15 +17,14 @@ import java.util.List;
 public class CartItemJdbcRepository {
 
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     public void addItem(ProductDto productDto, String sessionId) {
         try {
             jdbcTemplate.update("insert into cart values(?,?,?)",
                     sessionId, productDto.getId(), productDto.getQuantity());
-        }
-        catch (DataAccessException ex){
-
+        } catch (DataAccessException ex) {
+            throw new NotFoundException("Can not add item to cart.");
         }
     }
 
@@ -41,8 +41,8 @@ public class CartItemJdbcRepository {
                 quantity, sessionId, id);
     }
 
-    public void removeCartItem(Long id, String sessionId){
-        jdbcTemplate.update("delete from cart where session_id = ? and product_id = ?", sessionId,id);
+    public void removeCartItem(Long id, String sessionId) {
+        jdbcTemplate.update("delete from cart where session_id = ? and product_id = ?", sessionId, id);
     }
 
     class CartItemRowMapper implements RowMapper<CartItem> {

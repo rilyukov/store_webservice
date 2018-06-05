@@ -1,10 +1,8 @@
 package com.griddynamics.serviceshop.dto;
 
 public class CartItemDto {
-    Long id;
+    private Long id;
 
-    public CartItemDto() {
-    }
 
     public Long getId() {
         return id;
